@@ -1,0 +1,264 @@
+\documentclass[paper={550pt,2960pt},lualatex , ja=standard]{bxjsreport}
+\usepackage{luatexja-otf}
+\usepackage[deluxe]{luatexja-preset}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{bxpapersize}
+\usepackage{layout}
+\usepackage{geometry}
+\usepackage{siunitx}
+
+\setlength{\hoffset}{-1in+50pt}
+\setlength{\voffset}{-1in+50pt}
+\setlength{\textwidth}{450pt}
+\setlength{\topmargin}{0pt}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\textheight}{2860pt}
+\tcbuselibrary{listings}
+\hypersetup{%
+luatex,
+pdfencoding=auto,
+colorlinks=true,%
+allcolors=blue
+}
+
+\definecolor{White}{rgb}{1,1,1}
+\definecolor{Orange}{rgb}{0.9,0.1,0}
+\lstset{
+  basicstyle={\ttfamily\scriptsize}, % 使用フォント
+  classoffset=1,
+  breaklines=true,
+  identifierstyle={},
+  commentstyle={},
+  keywordstyle={\bfseries},
+  ndkeywordstyle={},
+  stringstyle={\ttfamily},
+  columns=fixed,
+  basewidth=0.5em,
+  numberstyle={\tiny},
+  stepnumber=1,
+  tabsize=4,
+  keywordstyle={\color{blue}}, %キーワード(int, ifなど)の書体指定
+  commentstyle={\color{OliveGreen}}, %注釈の書体
+  stringstyle={\color{Orange}}, %文字列
+  showstringspaces=false,  %文字列中の半角スペースを表示させない
+  keepspaces=true,
+  rulesep = 1pt,
+  xrightmargin=0zw,                     % 右マージンのサイズ．
+  xleftmargin=1.6zw,                    % 左マージンのサイズ．行番号が2桁でも行左端からはみ出ない値．
+}
+
+\makeatletter
+\def\lst@lettertrue{\let\lst@ifletter\iffalse}
+\makeatother
+
+\pagestyle{empty}
+\begin{document}
+
+\def\xmlcol{-20pt}
+\def\xmlrowVal{0pt}
+\def\xmlrowValTL{10pt}
+\def\xmlrowDef{150pt}
+\def\xmlrowExp{200pt}
+
+\definecolor{backcolor}{rgb}{0.9,0.9,0.9}
+\definecolor{framecolor}{rgb}{0.8,0.8,0.8}
+\definecolor{xsdbackcolor}{rgb}{0.9,0.9,1}
+\definecolor{xsdframecolor}{rgb}{0.7,0.7,0.9}
+\definecolor{White}{rgb}{1,1,1}
+
+\newcommand{\mktree}[3]{
+    \node[anchor=west,font=\fontsize{\xmlrowValTL}{\xmlrowValTL}\selectfont] at(\xmlrowVal+\xmlrowValTL*#2,\xmlcol*#3){#1};
+    \ifnum #2=0
+    \else
+    \draw (\xmlrowVal+\xmlrowValTL*#2-\xmlrowValTL/4,\xmlcol*#3)--(\xmlrowVal+\xmlrowValTL*#2+\xmlrowValTL/4,\xmlcol*#3);
+    \fi
+    }
+\newcommand{\drawtreeline}[3]{
+    \draw (\xmlrowVal+\xmlrowValTL*#1-\xmlrowValTL/4,\xmlcol*#2+\xmlcol/2)--(\xmlrowVal+\xmlrowValTL*#1-\xmlrowValTL/4,\xmlcol*#3);
+    }
+\def\postbreak{}
+%\def\postbreak{\mbox{\textcolor{red}{$\hookrightarrow$}\space}}
+\newtcblisting{reflisting}[2][]{
+      arc=5pt,
+      top=10pt,
+      bottom=10pt,
+      left=0pt,
+      right=0pt,
+      boxrule=1pt,
+      colback=backcolor,
+      colframe=framecolor,
+      listing only,
+      hbox,
+      #1,
+      listing options={
+        breaklines=true,
+        postbreak=\postbreak,
+        #2
+      }
+}
+\newtcblisting{refxsdlisting}[1][]{
+      arc=5pt,
+      top=10pt,
+      bottom=10pt,
+      left=15pt,
+      right=0pt,
+      boxrule=1pt,
+      colback=xsdbackcolor,
+      colframe=xsdframecolor,
+      listing only,
+      hbox,
+      #1,
+      coltitle=black,
+      listing options={
+        language=XML,
+        breaklines=true,
+        postbreak=\postbreak,
+        escapechar=!,
+      }
+}
+
+%\layout
+\chapter*{RoadSignal}
+
+\section*{構文解説}
+
+\subsection*{\texttt{Put}}
+\begin{reflisting}[]{language=C,escapechar=\@,}
+BveEx.User.Toukaitetudou.RoadSignal.Put(string filepath);
+\end{reflisting}
+構文を記述した距離程を基準にファイル filepath で設定した信号機を設置します.
+
+
+
+\section*{設定ファイル解説}
+\subsection*{ExtendedTrainSchedulerWithOudiaConfig}
+\begin{refxsdlisting}[title=XSD定義,]
+<xs:element name="Config">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name ="SignalControler">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:choice minOccurs="0" maxOccurs="unbounded">
+                            <xs:element name="Base" type="Structure" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="AcG" type="Structure" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="AcY" type="Structure" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="AcR" type="Structure" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="AcA" type="Structure" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="ApG" type="Structure" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="ApR" type="Structure" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="BcG" type="Structure" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="BcY" type="Structure" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="BcR" type="Structure" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="BcA" type="Structure" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="BpG" type="Structure" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="BpR" type="Structure" minOccurs="0" maxOccurs="unbounded"/>
+                        </xs:choice>
+                    </xs:sequence>
+                    <xs:attribute name="AR" type="xs:boolean" default="false"/>
+                    <xs:attribute name="BR" type="xs:boolean" default="false"/>
+                    <xs:attribute name="AcG" type="xs:time" use="required"/>
+                    <xs:attribute name="Apf" type="xs:positiveInteger" use="required"/>
+                    <xs:attribute name="AcA" type="xs:time" default="00:00:00"/>
+                    <xs:attribute name="BcG" type="xs:time" use="required"/>
+                    <xs:attribute name="Bpf" type="xs:positiveInteger" use="required"/>
+                    <xs:attribute name="BcA" type="xs:time" default="00:00:00"/>
+                    <xs:attribute name="sd" type="xs:time" default="00:00:00"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:element>
+\end{refxsdlisting}
+(要　素) ルート要素です. それぞれ0個以上の Base要素, AcG要素, AcY要素, AcR要素, AcA要素, ApG要素, ApR要素, BcG要素, BcY要素, BcR要素, BcA要素, BpG要素, BpR要素, を持ちます.
+\subsubsection*{Base}
+(子要素) 全ての信号現示に関わらず描画されるモデルを設定します. 詳しくは下記Structureの項目を確認してください.
+\subsubsection*{AcG}
+(子要素) 優先道路側車両用信号の青現示に連動して描画されるモデルを設定します. 詳しくは下記Structureの項目を確認してください.
+\subsubsection*{AcY}
+(子要素) 優先道路側車両用信号の黄現示に連動して描画されるモデルを設定します. 詳しくは下記Structureの項目を確認してください.
+\subsubsection*{AcR}
+(子要素) 優先道路側車両用信号の赤現示に連動して描画されるモデルを設定します. 詳しくは下記Structureの項目を確認してください.
+\subsubsection*{AcA}
+(子要素) 優先道路側車両用信号の右折矢印信号現示に連動して描画されるモデルを設定します. 詳しくは下記Structureの項目を確認してください.
+\subsubsection*{ApG}
+(子要素) 優先道路側歩行者用信号の青現示に連動して描画されるモデルを設定します. 詳しくは下記Structureの項目を確認してください.
+\subsubsection*{ApR}
+(子要素) 優先道路側歩行者用信号の赤現示に連動して描画されるモデルを設定します. 詳しくは下記Structureの項目を確認してください.
+\subsubsection*{BcG}
+(子要素) 交差道路側車両用信号の青現示に連動して描画されるモデルを設定します. 詳しくは下記Structureの項目を確認してください.
+\subsubsection*{BcY}
+(子要素) 交差道路側車両用信号の黄現示に連動して描画されるモデルを設定します. 詳しくは下記Structureの項目を確認してください.
+\subsubsection*{BcR}
+(子要素) 交差道路側車両用信号の赤現示に連動して描画されるモデルを設定します. 詳しくは下記Structureの項目を確認してください.
+\subsubsection*{BcA}
+(子要素) 交差道路側車両用信号の右折矢印信号現示に連動して描画されるモデルを設定します. 詳しくは下記Structureの項目を確認してください.
+\subsubsection*{BpG}
+(子要素) 交差道路側歩行者用信号の青現示に連動して描画されるモデルを設定します. 詳しくは下記Structureの項目を確認してください.
+\subsubsection*{BpR}
+(子要素) 交差道路側歩行者用信号の赤現示に連動して描画されるモデルを設定します. 詳しくは下記Structureの項目を確認してください.
+\subsubsection*{AR}
+(属　性) trueの場合優先道路側に右折矢印信号が存在するものとします. 省略可能です. 省略した場合, 値はfalseであるものとして扱われます.
+\subsubsection*{BR}
+(属　性) trueの場合交差道路側に右折矢印信号が存在するものとします. 省略可能です. 省略した場合, 値はfalseであるものとして扱われます.
+\subsubsection*{AcG}
+(属　性) 優先道路側の車両用信号機の青現示持続時間を設定します. 省略できません.
+\subsubsection*{Apf}
+(属　性) 優先道路側の車両歩行者用信号機の点滅回数を設定します. 省略できません.
+\subsubsection*{AcA}
+(属　性) 優先道路側の車両用信号機の右折矢印信号現示持続時間を設定します. 省略可能です. 省略した場合, 値は00:00:00であるものとして扱われます.
+\subsubsection*{BcG}
+(属　性) 交差道路側の車両用信号機の青現示持続時間を設定します. 省略できません.
+\subsubsection*{Bpf}
+(属　性) 交差道路側の車両歩行者用信号機の点滅回数を設定します. 省略できません.
+\subsubsection*{BcA}
+(属　性) 交差道路側の車両用信号機の右折矢印信号現示持続時間を設定します. 省略可能です. 省略した場合, 値は00:00:00であるものとして扱われます.
+\subsubsection*{sd}
+(属　性) シナリオ開始時刻から最初の優先道路側信号の青色現示開始時刻までの時間差を設定します. 省略可能です. 省略した場合, 値は00:00:00であるものとして扱われます.
+
+\subsection*{Structure}
+\begin{refxsdlisting}[title=XSD定義,]
+<xs:complexType name="Structure">
+    <xs:attribute name="OnLightStructure" type="xs:anyURI" use="required"/>
+    <xs:attribute name="OffLightStructure" type="xs:anyURI" use="optional"/>
+    <xs:attribute name="Track" type="xs:NMTOKEN" use="required"/>
+    <xs:attribute name ="X" type="xs:double" default="0"/>
+    <xs:attribute name ="Y" type="xs:double" default="0"/>
+    <xs:attribute name ="Z" type="xs:double" default="0"/>
+    <xs:attribute name ="RX" type="xs:double" default="0"/>
+    <xs:attribute name ="RY" type="xs:double" default="0"/>
+    <xs:attribute name ="RZ" type="xs:double" default="0"/>
+    <xs:attribute name ="Tilt" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name ="Span" type="xs:double" use="required"/>
+</xs:complexType>
+\end{refxsdlisting}
+(要　素) ストラクチャ情報を設定します. 0個の子要素を持ちます.
+\subsubsection*{OnLightStructure}
+(属　性) 各ストラクチャ点灯時に描画されるモデルのファイルを指定します. 省略できません.
+\subsubsection*{OffLightStructure}
+(属　性) 各ストラクチャ消灯時に描画されるモデルのファイルを指定します. 省略可能です. 省略した場合, 値はOnLightStructure属　性の値であるものとして扱います.
+\subsubsection*{Track}
+(属　性) Structure.Put構文のTrackに当たる情報を設定します. 省略できません.
+\subsubsection*{X}
+(属　性) Structure.Put構文のXに当たる情報を設定します. 省略可能です. 省略した場合, 値は0であるものとします.
+\subsubsection*{Y}
+(属　性) Structure.Put構文のYに当たる情報を設定します. 省略可能です. 省略した場合, 値は0であるものとします.
+\subsubsection*{Z}
+(属　性) Structure.Put構文のZに当たる情報を設定します. 省略可能です. 省略した場合, 値は0であるものとします.
+\subsubsection*{RX}
+(属　性) Structure.Put構文のRXに当たる情報を設定します. 省略可能です. 省略した場合, 値は0であるものとします.
+\subsubsection*{RY}
+(属　性) Structure.Put構文のRYに当たる情報を設定します. 省略可能です. 省略した場合, 値は0であるものとします.
+\subsubsection*{RZ}
+(属　性) Structure.Put構文のRZに当たる情報を設定します. 省略可能です. 省略した場合, 値は0であるものとします.
+\subsubsection*{Tilt}
+(属　性) Structure.Put構文のTiltに当たる情報を設定します. 省略できません.
+\subsubsection*{Span}
+(属　性) Structure.Put構文のSpanに当たる情報を設定します. 省略できません.
+\end{document}

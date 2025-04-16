@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns="http://tempuri.org/Config.xsd">
+    <SignalControler AR="true" BR="true" AcG="00:00:10" Apf="5" AcA="00:00:03" BcG="00:00:10" Bpf="5" BcA="00:00:03" sd="00:00:03">
+        <Base OnLightStructure="Structure/Signal_Arrow_Body.x" Track="0" X="0.5" Y="1.5" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <Base OnLightStructure="Structure/Signal_People_Body.x" Track="0" X="1.25" Y="1.75" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <Base OnLightStructure="Structure/Signal_People_Body.x" Track="0" X="-1.25" Y="1.75" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+
+        <Base OnLightStructure="Structure/Signal_Car_Body.x" Track="0" X="0" Y="4" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <Base OnLightStructure="Structure/Signal_Arrow_Body.x" Track="0" X="0.5" Y="3.5" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <Base OnLightStructure="Structure/Signal_People_Body.x" Track="0" X="1.25" Y="3.75" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <Base OnLightStructure="Structure/Signal_People_Body.x" Track="0" X="-1.25" Y="3.75" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+
+        <AcG OnLightStructure="Structure/Signal_Car_GOn.x" OffLightStructure="Structure/Signal_Car_GOff.x" Track="0" X="0" Y="2" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <AcY OnLightStructure="Structure/Signal_Car_YOn.x" OffLightStructure="Structure/Signal_Car_YOff.x" Track="0" X="0" Y="2" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <AcR OnLightStructure="Structure/Signal_Car_ROn.x" OffLightStructure="Structure/Signal_Car_ROff.x" Track="0" X="0" Y="2" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <AcA OnLightStructure="Structure/Signal_Arrow_On.x" OffLightStructure="Structure/Signal_Arrow_Off.x" Track="0" X="0.5" Y="1.5" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <ApG OnLightStructure="Structure/Signal_People_GOn.x" OffLightStructure="Structure/Signal_People_GOff.x" Track="0" X="1.25" Y="1.75" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <ApG OnLightStructure="Structure/Signal_People_GOn.x" OffLightStructure="Structure/Signal_People_GOff.x" Track="0" X="-1.25" Y="1.75" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <ApR OnLightStructure="Structure/Signal_People_ROn.x" OffLightStructure="Structure/Signal_People_ROff.x" Track="0" X="1.25" Y="1.75" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <ApR OnLightStructure="Structure/Signal_People_ROn.x" OffLightStructure="Structure/Signal_People_ROff.x" Track="0" X="-1.25" Y="1.75" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+
+        <BcG OnLightStructure="Structure/Signal_Car_GOn.x" OffLightStructure="Structure/Signal_Car_GOff.x" Track="0" X="0" Y="4" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <BcY OnLightStructure="Structure/Signal_Car_YOn.x" OffLightStructure="Structure/Signal_Car_YOff.x" Track="0" X="0" Y="4" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <BcR OnLightStructure="Structure/Signal_Car_ROn.x" OffLightStructure="Structure/Signal_Car_ROff.x" Track="0" X="0" Y="4" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <BcA OnLightStructure="Structure/Signal_Arrow_On.x" OffLightStructure="Structure/Signal_Arrow_Off.x" Track="0" X="0.5" Y="3.5" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <BpG OnLightStructure="Structure/Signal_People_GOn.x" OffLightStructure="Structure/Signal_People_GOff.x" Track="0" X="1.25" Y="3.75" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <BpG OnLightStructure="Structure/Signal_People_GOn.x" OffLightStructure="Structure/Signal_People_GOff.x" Track="0" X="-1.25" Y="3.75" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <BpR OnLightStructure="Structure/Signal_People_ROn.x" OffLightStructure="Structure/Signal_People_ROff.x" Track="0" X="1.25" Y="3.75" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <BpR OnLightStructure="Structure/Signal_People_ROn.x" OffLightStructure="Structure/Signal_People_ROff.x" Track="0" X="-1.25" Y="3.75" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+        <Base OnLightStructure="Structure/Signal_Car_Body.x" Track="0" X="0" Y="2" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
+    </SignalControler>
+</Config>

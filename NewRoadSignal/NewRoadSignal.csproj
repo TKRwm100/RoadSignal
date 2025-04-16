@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{08BFEA5B-15AD-4B6C-B835-FFD295FE2611}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BveEx.Toukaitetudou.RoadSignal</RootNamespace>
+    <AssemblyName>RoadSignal</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Config.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Config.cs">
+      <DependentUpon>Config.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigData.cs" />
+    <Compile Include="ConfigExtention.cs" />
+    <Compile Include="PluginMain.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony, Version=2.3.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lib.Harmony.2.3.5\lib\net48\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="BveEx.CoreExtensions, Version=2.0.41222.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BveEx.CoreExtensions.2.0.0\lib\BveEx.CoreExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="BveEx.Diagnostics, Version=2.0.41222.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BveEx.Diagnostics.2.0.0\lib\BveEx.Diagnostics.dll</HintPath>
+    </Reference>
+    <Reference Include="BveEx.PluginHost, Version=2.0.50204.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BveEx.PluginHost.2.0.6\lib\BveEx.PluginHost.dll</HintPath>
+    </Reference>
+    <Reference Include="BveTypes, Version=2.0.50314.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BveEx.PluginHost.2.0.6\lib\BveTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="FastCaching, Version=2.0.41222.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BveEx.PluginHost.2.0.6\lib\FastCaching.dll</HintPath>
+    </Reference>
+    <Reference Include="FastMember, Version=2.0.41222.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BveEx.PluginHost.2.0.6\lib\FastMember.dll</HintPath>
+    </Reference>
+    <Reference Include="ObjectiveHarmonyPatch, Version=1.2.50130.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObjectiveHarmonyPatch.1.2.0\lib\ObjectiveHarmonyPatch.dll</HintPath>
+    </Reference>
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
+      <HintPath>..\packages\SlimDX.4.0.13.44\lib\NET40\SlimDX.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
+    <Reference Include="TypeWrapping, Version=2.0.50314.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BveEx.PluginHost.2.0.6\lib\TypeWrapping.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Controler.sample.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
