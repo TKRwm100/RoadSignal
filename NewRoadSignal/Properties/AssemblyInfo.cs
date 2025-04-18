@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
 [assembly: AssemblyTitle("RoadSignal")]
-[assembly: AssemblyDescription("BveEX で自動車用信号を")]
+[assembly: AssemblyDescription("BveEX で車両用・歩行者用の交通信号を制御するプラグイン")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("AtsEX & BveEX Project")]
-[assembly: AssemblyProduct("BveEX")]
-[assembly: AssemblyCopyright("Copyright © 2022 automatic9045")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("")]
+[assembly: AssemblyCopyright("Copyright © 2025 Toukaitetudou")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
