@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <BveExPluginUsing>
-    <Assembly Path="C:\Users\localuser\Documents\GitHub\NewRoadSignal\NewRoadSignal\bin\Debug\RoadSignal.dll"/>
+    <Assembly Path="MapPlugins\RoadSignal.dll"/>
 </BveExPluginUsing>
