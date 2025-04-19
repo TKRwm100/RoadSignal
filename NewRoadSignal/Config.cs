@@ -20,8 +20,8 @@ using System.Xml.Serialization;
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://tempuri.org/Config.xsd")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://tempuri.org/Config.xsd", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="BveEx.Toukaitetudou.RoadSignal.Config.xsd")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="BveEx.Toukaitetudou.RoadSignal.Config.xsd", IsNullable=false)]
 public partial class Config {
     
     private ConfigSignalControler signalControlerField;
@@ -42,7 +42,7 @@ public partial class Config {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://tempuri.org/Config.xsd")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="BveEx.Toukaitetudou.RoadSignal.Config.xsd")]
 public partial class ConfigSignalControler {
     
     private Structure[] itemsField;
@@ -221,7 +221,7 @@ public partial class ConfigSignalControler {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/Config.xsd")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="BveEx.Toukaitetudou.RoadSignal.Config.xsd")]
 public partial class Structure {
     
     private string onLightStructureField;
@@ -386,7 +386,7 @@ public partial class Structure {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/Config.xsd", IncludeInSchema=false)]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="BveEx.Toukaitetudou.RoadSignal.Config.xsd", IncludeInSchema=false)]
 public enum ItemsChoiceType {
     
     /// <remarks/>

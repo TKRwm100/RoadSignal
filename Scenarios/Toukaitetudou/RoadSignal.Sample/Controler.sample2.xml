@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Config xmlns="http://tempuri.org/Config.xsd">
+<Config xmlns="BveEx.Toukaitetudou.RoadSignal.Config.xsd">
     <SignalControler AR="true" AcG="00:00:20" Apf="7" AcA="00:00:05" BcG="00:00:10" Bpf="5" BcA="00:00:03" sd="00:00:00">
         <Base OnLightStructure="Structure/Signal_Car_Body.x" Track="1" X="0" Y="2" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
         <Base OnLightStructure="Structure/Signal_Arrow_Body.x" Track="1" X="0.5" Y="1.5" Z="0" RX="0" RY="0" RZ="0" Tilt="3" Span="0" />
