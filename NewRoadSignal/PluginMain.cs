@@ -23,11 +23,11 @@ namespace BveEx.Toukaitetudou.RoadSignal
             BveHacker.ScenarioCreated+=BveHacker_ScenarioCreated;
             Statements.LoadingCompleted+=Statements_LoadingCompleted;
 
-
             ClassMemberSet members = BveHacker.BveTypes.GetClassInfoOf<StructureDrawer>();
             FastMethod DrawCarsMethod = members.GetSourceMethodOf(nameof(ObjectDrawer.StructureDrawer.Draw));
             patch=HarmonyPatch.Patch(Identifier, DrawCarsMethod.Source, PatchType.Prefix);
             patch.Invoked+=Patch_Invoked;
+
         }
 
         private PatchInvokationResult Patch_Invoked(object sender, PatchInvokedEventArgs e)
@@ -41,15 +41,22 @@ namespace BveEx.Toukaitetudou.RoadSignal
                 foreach (BveTypes.ClassWrappers.Structure structure in cd.GetDrawStructure())
                 {
                     if (structure is null) continue;
+                    if (
+                    BveHacker.Scenario.VehicleLocation.Location-BveHacker.Scenario.ObjectDrawer.DrawDistanceManager.BackDrawDistance<=
+                    structure.Location&&
+                    structure.Location<=
+                    BveHacker.Scenario.VehicleLocation.Location+BveHacker.Scenario.ObjectDrawer.DrawDistanceManager.DrawDistance
+                    )
+                    {
+                        Matrix matrix = BveHacker.Scenario.Map.GetTrackMatrix(structure, structure.Location, BveHacker.Scenario.VehicleLocation.BlockIndex*25)*viewMatrix;
 
-                    Matrix matrix = BveHacker.Scenario.Map.GetTrackMatrix(structure, structure.Location, BveHacker.Scenario.VehicleLocation.BlockIndex*25)*viewMatrix;
 
-
-                    direct3DProvider.Device.SetTransform(SlimDX.Direct3D9.TransformState.World,
-                    matrix
-                    );
-                    structure.Model.Draw(direct3DProvider, false);
-                    structure.Model.Draw(direct3DProvider, true);
+                        direct3DProvider.Device.SetTransform(SlimDX.Direct3D9.TransformState.World,
+                        matrix
+                        );
+                        structure.Model.Draw(direct3DProvider, false);
+                        structure.Model.Draw(direct3DProvider, true);
+                    }
                 }
             }
             return new PatchInvokationResult(SkipModes.Continue);
@@ -79,7 +86,7 @@ namespace BveEx.Toukaitetudou.RoadSignal
                     cd?.Dispose();
                 }
             }
-            
+            ModelManager.Dispose();
         }
 
         public override void Tick(TimeSpan elapsed)

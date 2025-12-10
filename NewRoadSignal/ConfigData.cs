@@ -74,14 +74,14 @@ namespace BveEx.Toukaitetudou.RoadSignal
             ConfigData rt;
             Config config;
             double location = statement.Source.Location;
-            string filePath = statement.Source.FileName;
-            using (StreamReader sr = new StreamReader(Path.Combine(Path.GetDirectoryName(statement.Source.FileName), statement.Source.Clauses[4].Args[0] as string)))
+            string filePath = Path.Combine(Path.GetDirectoryName(statement.Source.FileName), statement.Source.Clauses[4].Args[0] as string);
+            using (StreamReader sr = new StreamReader(filePath))
             {
                 XmlSerializer xs = new XmlSerializer(typeof(Config));
                 try
                 {
                     config = (Config)xs.Deserialize(sr);
-                    rt = new ConfigData(config,filePath);
+                    rt = new ConfigData(config,Path.GetDirectoryName(filePath));
                 }
                 catch (Exception exp)
                 {
@@ -94,20 +94,20 @@ namespace BveEx.Toukaitetudou.RoadSignal
 
             var structure=config.SignalControler.ItemsElementName.Zip(config.SignalControler.Items,(x,y)=>(x,y));
 
-            rt.BaseStr = structure.Where(x=>x.x==ItemsChoiceType.Base).Select(x => x.y.GetStructure(location, filePath)).ToList();
-            rt.AcGStr = structure.Where(x=>x.x==ItemsChoiceType.AcG).Select(x => x.y.GetStructure(location, filePath)).ToList();
-            rt.AcYStr = structure.Where(x=>x.x==ItemsChoiceType.AcY).Select(x => x.y.GetStructure(location, filePath)).ToList();
-            rt.AcRStr = structure.Where(x=>x.x==ItemsChoiceType.AcR).Select(x => x.y.GetStructure(location, filePath)).ToList();
-            rt.AcAStr = structure.Where(x=>x.x==ItemsChoiceType.AcA).Select(x => x.y.GetStructure(location, filePath)).ToList();
-            rt.ApGStr = structure.Where(x=>x.x==ItemsChoiceType.ApG).Select(x => x.y.GetStructure(location, filePath)).ToList();
-            rt.ApRStr = structure.Where(x=>x.x==ItemsChoiceType.ApR).Select(x => x.y.GetStructure(location, filePath)).ToList();
+            rt.BaseStr = structure.Where(x=>x.x==ItemsChoiceType.Base).Select(x => x.y.GetStructure(location,rt.FilePath)).ToList();
+            rt.AcGStr = structure.Where(x => x.x==ItemsChoiceType.AcG).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.AcYStr = structure.Where(x=>x.x==ItemsChoiceType.AcY).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.AcRStr = structure.Where(x=>x.x==ItemsChoiceType.AcR).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.AcAStr = structure.Where(x=>x.x==ItemsChoiceType.AcA).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.ApGStr = structure.Where(x=>x.x==ItemsChoiceType.ApG).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.ApRStr = structure.Where(x=>x.x==ItemsChoiceType.ApR).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
 
-            rt.BcGStr = structure.Where(x=>x.x==ItemsChoiceType.BcG).Select(x => x.y.GetStructure(location, filePath)).ToList();
-            rt.BcYStr = structure.Where(x=>x.x==ItemsChoiceType.BcY).Select(x => x.y.GetStructure(location, filePath)).ToList();
-            rt.BcRStr = structure.Where(x=>x.x==ItemsChoiceType.BcR).Select(x => x.y.GetStructure(location, filePath)).ToList();
-            rt.BcAStr = structure.Where(x=>x.x==ItemsChoiceType.BcA).Select(x => x.y.GetStructure(location, filePath)).ToList();
-            rt.BpGStr = structure.Where(x=>x.x==ItemsChoiceType.BpG).Select(x => x.y.GetStructure(location, filePath)).ToList();
-            rt.BpRStr = structure.Where(x=>x.x==ItemsChoiceType.BpR).Select(x => x.y.GetStructure(location, filePath)).ToList();
+            rt.BcGStr = structure.Where(x=>x.x==ItemsChoiceType.BcG).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.BcYStr = structure.Where(x=>x.x==ItemsChoiceType.BcY).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.BcRStr = structure.Where(x=>x.x==ItemsChoiceType.BcR).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.BcAStr = structure.Where(x=>x.x==ItemsChoiceType.BcA).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.BpGStr = structure.Where(x=>x.x==ItemsChoiceType.BpG).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.BpRStr = structure.Where(x=>x.x==ItemsChoiceType.BpR).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
 
             return rt;
         }
@@ -203,7 +203,7 @@ namespace BveEx.Toukaitetudou.RoadSignal
         }
 
         public void Dispose()
-        {
+        {/*
             foreach (BveTypes.ClassWrappers.Structure structure in
             new List<IEnumerable<BveTypes.ClassWrappers.Structure>>()
             {
@@ -237,7 +237,7 @@ namespace BveEx.Toukaitetudou.RoadSignal
             }.SelectMany(x => x))
             {
                 structure?.Model?.Dispose();
-            }
+            }*/
         }
     }
 }

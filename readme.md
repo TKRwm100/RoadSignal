@@ -38,7 +38,7 @@ BveExサンプルシナリオと同階層に配置する等, 参照依存を適�
 
 ## ライセンス
 
-[PolyForm Noncommercial License 1.0.0](LICENSE.md)
+[拡張PolyForm準拠ライセンス](LICENSE.md)
 
 ## 使用ライブラリ等
 

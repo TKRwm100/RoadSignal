@@ -48,30 +48,35 @@
     </Compile>
     <Compile Include="ConfigData.cs" />
     <Compile Include="ConfigExtention.cs" />
+    <Compile Include="DisposableValueDictionary.cs" />
+    <Compile Include="ModelManager.cs" />
     <Compile Include="PluginMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.3.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lib.Harmony.2.3.5\lib\net48\0Harmony.dll</HintPath>
+    <Reference Include="0Harmony, Version=2.3.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lib.Harmony.2.3.6\lib\net48\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="BveEx.CoreExtensions, Version=2.0.41222.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BveEx.CoreExtensions.2.0.0\lib\BveEx.CoreExtensions.dll</HintPath>
+    <Reference Include="BveEx.CoreExtensions, Version=2.0.50427.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BveEx.CoreExtensions.2.0.8\lib\BveEx.CoreExtensions.dll</HintPath>
     </Reference>
     <Reference Include="BveEx.Diagnostics, Version=2.0.41222.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\BveEx.Diagnostics.2.0.0\lib\BveEx.Diagnostics.dll</HintPath>
     </Reference>
     <Reference Include="BveEx.PluginHost, Version=2.0.50204.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BveEx.PluginHost.2.0.6\lib\BveEx.PluginHost.dll</HintPath>
+      <HintPath>..\packages\BveEx.PluginHost.2.0.8\lib\BveEx.PluginHost.dll</HintPath>
     </Reference>
-    <Reference Include="BveTypes, Version=2.0.50314.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BveEx.PluginHost.2.0.6\lib\BveTypes.dll</HintPath>
+    <Reference Include="BveTypes, Version=2.0.50428.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BveEx.PluginHost.2.0.8\lib\BveTypes.dll</HintPath>
     </Reference>
     <Reference Include="FastCaching, Version=2.0.41222.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BveEx.PluginHost.2.0.6\lib\FastCaching.dll</HintPath>
+      <HintPath>..\packages\BveEx.PluginHost.2.0.8\lib\FastCaching.dll</HintPath>
     </Reference>
     <Reference Include="FastMember, Version=2.0.41222.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BveEx.PluginHost.2.0.6\lib\FastMember.dll</HintPath>
+      <HintPath>..\packages\BveEx.PluginHost.2.0.8\lib\FastMember.dll</HintPath>
+    </Reference>
+    <Reference Include="Mackoy.XmlInterfaces">
+      <HintPath>..\..\..\..\..\..\Program Files\mackoy\BveTs6\Mackoy.XmlInterfaces.DLL</HintPath>
     </Reference>
     <Reference Include="ObjectiveHarmonyPatch, Version=1.2.50130.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ObjectiveHarmonyPatch.1.2.0\lib\ObjectiveHarmonyPatch.dll</HintPath>
@@ -86,7 +91,7 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml.Serialization" />
     <Reference Include="TypeWrapping, Version=2.0.50314.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BveEx.PluginHost.2.0.6\lib\TypeWrapping.dll</HintPath>
+      <HintPath>..\packages\BveEx.PluginHost.2.0.8\lib\TypeWrapping.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
