@@ -160,23 +160,20 @@ namespace BveEx.Toukaitetudou.RoadSignal
 
         public IEnumerable<BveTypes.ClassWrappers.Structure> GetDrawStructure()
         {
-            return new List<IEnumerable<BveTypes.ClassWrappers.Structure>>()
-            {
-                BaseStr.Select(x=>x.OnStructure),
-
-                isEnable&&(AcGb<totalElapse&&totalElapse<AcYb)                                                                                                              ?AcGStr.Select(x=>x.OnStructure):   AcGStr.Select(x=>x.OffStructure),
-                isEnable &&((AcYb<totalElapse&&totalElapse<AcYf) ||(AcAf<totalElapse&&totalElapse<AcAYf))                                                                   ?AcYStr.Select(x=>x.OnStructure):   AcYStr.Select(x=>x.OffStructure),
-                !isEnable || (AcYf<totalElapse&&totalElapse<AcAf)|| (AcAYf<totalElapse||totalElapse<AcGb)                                                                   ?AcRStr.Select(x=>x.OnStructure):   AcRStr.Select(x=>x.OffStructure),
-                isEnable && AR&& (AcYf<totalElapse&&totalElapse<AcAf)                                                                                                       ?AcAStr.Select(x=>x.OnStructure):   AcAStr.Select(x=>x.OffStructure),
-                isEnable &&((AcGb<totalElapse&&totalElapse<ApGf) ||(ApGf<totalElapse&&totalElapse<ApFf&&totalElapse.TotalSeconds%ApF.TotalSeconds<ApF.TotalSeconds/2))      ?ApGStr.Select(x=>x.OnStructure):   ApGStr.Select(x=>x.OffStructure),
-                !isEnable ||(ApFf<totalElapse||totalElapse<AcGb)                                                                                                            ?ApRStr.Select(x=>x.OnStructure):   ApRStr.Select(x=>x.OffStructure),
-                isEnable &&(BcGb<totalElapse&&totalElapse<BcYb)                                                                                                             ?BcGStr.Select(x=>x.OnStructure):   BcGStr.Select(x=>x.OffStructure),
-                isEnable && ((BcYb<totalElapse&&totalElapse<BcYf) ||(BcAf<totalElapse&&totalElapse<BcAYf))                                                                  ?BcYStr.Select(x=>x.OnStructure):   BcYStr.Select(x=>x.OffStructure),
-                !isEnable || ((BcYf<totalElapse&&totalElapse<BcAf) ||(BcAYf<totalElapse||totalElapse<BcGb))                                                                 ?BcRStr.Select(x=>x.OnStructure):   BcRStr.Select(x=>x.OffStructure),
-                isEnable &&BR&& (BcYf<totalElapse&&totalElapse<BcAf)                                                                                                        ?BcAStr.Select(x=>x.OnStructure):   BcAStr.Select(x=>x.OffStructure),
-                isEnable &&((BcGb<totalElapse&&totalElapse<BpGf)||(BpGf<totalElapse&&totalElapse<BpFf&&totalElapse.TotalSeconds%BpF.TotalSeconds<BpF.TotalSeconds/2))       ?BpGStr.Select(x=>x.OnStructure):   BpGStr.Select(x=>x.OffStructure),
-                !isEnable ||(BpFf<totalElapse||totalElapse<BcGb)                                                                                                            ?BpRStr.Select(x=>x.OnStructure):   BpRStr.Select(x=>x.OffStructure),
-            }.SelectMany(x => x);
+            return BaseStr.Select(x=>x.OnStructure).Concat(
+                isEnable&&(AcGb<totalElapse&&totalElapse<AcYb)                                                                                                              ?AcGStr.Select(x=>x.OnStructure):   AcGStr.Select(x=>x.OffStructure)).Concat(
+                isEnable &&((AcYb<totalElapse&&totalElapse<AcYf) ||(AcAf<totalElapse&&totalElapse<AcAYf))                                                                   ?AcYStr.Select(x=>x.OnStructure):   AcYStr.Select(x=>x.OffStructure)).Concat(
+                !isEnable || (AcYf<totalElapse&&totalElapse<AcAf)|| (AcAYf<totalElapse||totalElapse<AcGb)                                                                   ?AcRStr.Select(x=>x.OnStructure):   AcRStr.Select(x=>x.OffStructure)).Concat(
+                isEnable && AR&& (AcYf<totalElapse&&totalElapse<AcAf)                                                                                                       ?AcAStr.Select(x=>x.OnStructure):   AcAStr.Select(x=>x.OffStructure)).Concat(
+                isEnable &&((AcGb<totalElapse&&totalElapse<ApGf) ||(ApGf<totalElapse&&totalElapse<ApFf&&totalElapse.TotalSeconds%ApF.TotalSeconds<ApF.TotalSeconds/2))      ?ApGStr.Select(x=>x.OnStructure):   ApGStr.Select(x=>x.OffStructure)).Concat(
+                !isEnable ||(ApFf<totalElapse||totalElapse<AcGb)                                                                                                            ?ApRStr.Select(x=>x.OnStructure):   ApRStr.Select(x=>x.OffStructure)).Concat(
+                isEnable &&(BcGb<totalElapse&&totalElapse<BcYb)                                                                                                             ?BcGStr.Select(x=>x.OnStructure):   BcGStr.Select(x=>x.OffStructure)).Concat(
+                isEnable && ((BcYb<totalElapse&&totalElapse<BcYf) ||(BcAf<totalElapse&&totalElapse<BcAYf))                                                                  ?BcYStr.Select(x=>x.OnStructure):   BcYStr.Select(x=>x.OffStructure)).Concat(
+                !isEnable || ((BcYf<totalElapse&&totalElapse<BcAf) ||(BcAYf<totalElapse||totalElapse<BcGb))                                                                 ?BcRStr.Select(x=>x.OnStructure):   BcRStr.Select(x=>x.OffStructure)).Concat(
+                isEnable &&BR&& (BcYf<totalElapse&&totalElapse<BcAf)                                                                                                        ?BcAStr.Select(x=>x.OnStructure):   BcAStr.Select(x=>x.OffStructure)).Concat(
+                isEnable &&((BcGb<totalElapse&&totalElapse<BpGf)||(BpGf<totalElapse&&totalElapse<BpFf&&totalElapse.TotalSeconds%BpF.TotalSeconds<BpF.TotalSeconds/2))       ?BpGStr.Select(x=>x.OnStructure):   BpGStr.Select(x=>x.OffStructure)).Concat(
+                !isEnable ||(BpFf<totalElapse||totalElapse<BcGb)                                                                                                            ?BpRStr.Select(x=>x.OnStructure):   BpRStr.Select(x=>x.OffStructure))
+            ;
         }
 
         public void Tick(TimeSpan elapse)
@@ -205,36 +202,34 @@ namespace BveEx.Toukaitetudou.RoadSignal
         public void Dispose()
         {/*
             foreach (BveTypes.ClassWrappers.Structure structure in
-            new List<IEnumerable<BveTypes.ClassWrappers.Structure>>()
-            {
-                BaseStr.Select(x=>x.OnStructure),
-                AcGStr.Select(x=>x.OnStructure),
-                AcYStr.Select(x=>x.OnStructure),
-                AcRStr.Select(x=>x.OnStructure),
-                AcAStr.Select(x=>x.OnStructure),
-                ApGStr.Select(x=>x.OnStructure),
-                ApRStr.Select(x=>x.OnStructure),
-                BcGStr.Select(x=>x.OnStructure),
-                BcYStr.Select(x=>x.OnStructure),
-                BcRStr.Select(x=>x.OnStructure),
-                BcAStr.Select(x=>x.OnStructure),
-                BpGStr.Select(x=>x.OnStructure),
-                BpRStr.Select(x=>x.OnStructure),
+                BaseStr.Select(x=>x.OnStructure).Concat(
+                AcGStr.Select(x=>x.OnStructure)).Concat(
+                AcYStr.Select(x=>x.OnStructure)).Concat(
+                AcRStr.Select(x=>x.OnStructure)).Concat(
+                AcAStr.Select(x=>x.OnStructure)).Concat(
+                ApGStr.Select(x=>x.OnStructure)).Concat(
+                ApRStr.Select(x=>x.OnStructure)).Concat(
+                BcGStr.Select(x=>x.OnStructure)).Concat(
+                BcYStr.Select(x=>x.OnStructure)).Concat(
+                BcRStr.Select(x=>x.OnStructure)).Concat(
+                BcAStr.Select(x=>x.OnStructure)).Concat(
+                BpGStr.Select(x=>x.OnStructure)).Concat(
+                BpRStr.Select(x=>x.OnStructure)).Concat(
 
-                AcGStr.Select(x=>x.OffStructure),
-                AcYStr.Select(x=>x.OffStructure),
-                AcRStr.Select(x=>x.OffStructure),
-                AcAStr.Select(x=>x.OffStructure),
-                ApGStr.Select(x=>x.OffStructure),
-                ApRStr.Select(x=>x.OffStructure),
-                BcGStr.Select(x=>x.OffStructure),
-                BcYStr.Select(x=>x.OffStructure),
-                BcRStr.Select(x=>x.OffStructure),
-                BcAStr.Select(x=>x.OffStructure),
-                BpGStr.Select(x=>x.OffStructure),
-                BpRStr.Select(x=>x.OffStructure),
-                BaseStr.Select(x=>x.OffStructure),
-            }.SelectMany(x => x))
+                AcGStr.Select(x=>x.OffStructure)).Concat(
+                AcYStr.Select(x=>x.OffStructure)).Concat(
+                AcRStr.Select(x=>x.OffStructure)).Concat(
+                AcAStr.Select(x=>x.OffStructure)).Concat(
+                ApGStr.Select(x=>x.OffStructure)).Concat(
+                ApRStr.Select(x=>x.OffStructure)).Concat(
+                BcGStr.Select(x=>x.OffStructure)).Concat(
+                BcYStr.Select(x=>x.OffStructure)).Concat(
+                BcRStr.Select(x=>x.OffStructure)).Concat(
+                BcAStr.Select(x=>x.OffStructure)).Concat(
+                BpGStr.Select(x=>x.OffStructure)).Concat(
+                BpRStr.Select(x=>x.OffStructure)).Concat(
+                BaseStr.Select(x=>x.OffStructure))
+            )
             {
                 structure?.Model?.Dispose();
             }*/

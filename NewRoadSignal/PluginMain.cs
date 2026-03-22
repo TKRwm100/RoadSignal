@@ -35,29 +35,24 @@ namespace BveEx.Toukaitetudou.RoadSignal
             Direct3DProvider direct3DProvider = Direct3DProvider.FromSource(e.Args[0]);
             Matrix viewMatrix = (Matrix)e.Args[1];
 
-            foreach (ConfigData cd in ConfigDatas)
+            foreach (BveTypes.ClassWrappers.Structure structure in ConfigDatas.SelectMany(cd => cd?.GetDrawStructure()).Where(structure=>! (structure is null)&&
+                BveHacker.Scenario.VehicleLocation.Location - BveHacker.Scenario.ObjectDrawer.DrawDistanceManager.BackDrawDistance <=
+                structure.Location &&
+                structure.Location <=
+                BveHacker.Scenario.VehicleLocation.Location + BveHacker.Scenario.ObjectDrawer.DrawDistanceManager.DrawDistance
+                ))
             {
-                if (cd is null) continue;
-                foreach (BveTypes.ClassWrappers.Structure structure in cd.GetDrawStructure())
                 {
-                    if (structure is null) continue;
-                    if (
-                    BveHacker.Scenario.VehicleLocation.Location-BveHacker.Scenario.ObjectDrawer.DrawDistanceManager.BackDrawDistance<=
-                    structure.Location&&
-                    structure.Location<=
-                    BveHacker.Scenario.VehicleLocation.Location+BveHacker.Scenario.ObjectDrawer.DrawDistanceManager.DrawDistance
-                    )
-                    {
-                        Matrix matrix = BveHacker.Scenario.Map.GetTrackMatrix(structure, structure.Location, BveHacker.Scenario.VehicleLocation.BlockIndex*25)*viewMatrix;
+                    Matrix matrix = BveHacker.Scenario.Map.GetTrackMatrix(structure, structure.Location, BveHacker.Scenario.VehicleLocation.BlockIndex * 25) * viewMatrix;
 
 
-                        direct3DProvider.Device.SetTransform(SlimDX.Direct3D9.TransformState.World,
-                        matrix
-                        );
-                        structure.Model.Draw(direct3DProvider, false);
-                        structure.Model.Draw(direct3DProvider, true);
-                    }
+                    direct3DProvider.Device.SetTransform(SlimDX.Direct3D9.TransformState.World,
+                    matrix
+                    );
+                    structure.Model.Draw(direct3DProvider, false);
+                    structure.Model.Draw(direct3DProvider, true);
                 }
+
             }
             return new PatchInvokationResult(SkipModes.Continue);
         }
