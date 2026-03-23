@@ -12,6 +12,7 @@ namespace BveEx.Toukaitetudou.RoadSignal
 {
     internal class ConfigData : IDisposable
     {
+        public double Location { get; }
         private readonly bool AR;
         private readonly bool BR;
 
@@ -81,7 +82,7 @@ namespace BveEx.Toukaitetudou.RoadSignal
                 try
                 {
                     config = (Config)xs.Deserialize(sr);
-                    rt = new ConfigData(config,Path.GetDirectoryName(filePath));
+                    rt = new ConfigData(config,Path.GetDirectoryName(filePath),location);
                 }
                 catch (Exception exp)
                 {
@@ -114,8 +115,9 @@ namespace BveEx.Toukaitetudou.RoadSignal
 
         TimeSpan cycleSpan;
         public string FilePath { get; }
-        private ConfigData(Config config,string path)
+        private ConfigData(Config config,string path,double location)
         {
+            Location= location;
             FilePath = path;
             ConfigSignalControler sc = config.SignalControler;
             AR = sc.AR;

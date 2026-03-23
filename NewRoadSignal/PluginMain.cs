@@ -17,42 +17,37 @@ namespace BveEx.Toukaitetudou.RoadSignal
         private readonly IStatementSet Statements;
         private readonly HarmonyPatch patch;
         List<ConfigData> ConfigDatas;
+        FastMethod DrawMethod;
         public PluginMain(PluginBuilder builder) : base(builder)
         {
             Statements= Extensions.GetExtension<IStatementSet>();
             BveHacker.ScenarioCreated+=BveHacker_ScenarioCreated;
             Statements.LoadingCompleted+=Statements_LoadingCompleted;
+            DrawMethod=FastMethod.Create( BveHacker.BveTypes.GetClassInfoOf<Model>().OriginalType.GetMethod("b",new Type[] { BveHacker.BveTypes.GetClassInfoOf<Direct3DProvider>().OriginalType}));
 
             ClassMemberSet members = BveHacker.BveTypes.GetClassInfoOf<StructureDrawer>();
             FastMethod DrawCarsMethod = members.GetSourceMethodOf(nameof(ObjectDrawer.StructureDrawer.Draw));
             patch=HarmonyPatch.Patch(Identifier, DrawCarsMethod.Source, PatchType.Prefix);
             patch.Invoked+=Patch_Invoked;
-
         }
 
         private PatchInvokationResult Patch_Invoked(object sender, PatchInvokedEventArgs e)
         {
             Direct3DProvider direct3DProvider = Direct3DProvider.FromSource(e.Args[0]);
             Matrix viewMatrix = (Matrix)e.Args[1];
-
-            foreach (BveTypes.ClassWrappers.Structure structure in ConfigDatas.SelectMany(cd => cd?.GetDrawStructure()).Where(structure=>! (structure is null)&&
-                BveHacker.Scenario.VehicleLocation.Location - BveHacker.Scenario.ObjectDrawer.DrawDistanceManager.BackDrawDistance <=
-                structure.Location &&
-                structure.Location <=
-                BveHacker.Scenario.VehicleLocation.Location + BveHacker.Scenario.ObjectDrawer.DrawDistanceManager.DrawDistance
-                ))
+            double minDrawLocation = BveHacker.Scenario.VehicleLocation.Location - BveHacker.Scenario.ObjectDrawer.DrawDistanceManager.BackDrawDistance;
+            double maxDrawLocation = BveHacker.Scenario.VehicleLocation.Location + BveHacker.Scenario.ObjectDrawer.DrawDistanceManager.DrawDistance;
+            direct3DProvider.Device.SetRenderState(SlimDX.Direct3D9.RenderState.ZWriteEnable, true);
+            object[] args = new object[] { e.Args[0] };
+            int locationBlack = BveHacker.Scenario.VehicleLocation.BlockIndex * 25;
+            foreach (BveTypes.ClassWrappers.Structure structure in ConfigDatas.Where(x=>minDrawLocation<=x.Location&&x.Location<=maxDrawLocation).SelectMany(cd => cd?.GetDrawStructure()).Where(structure => !(structure is null)))
             {
-                {
-                    Matrix matrix = BveHacker.Scenario.Map.GetTrackMatrix(structure, structure.Location, BveHacker.Scenario.VehicleLocation.BlockIndex * 25) * viewMatrix;
-
-
+                    Matrix matrix = BveHacker.Scenario.Map.GetTrackMatrix(structure, structure.Location, locationBlack) * viewMatrix;
                     direct3DProvider.Device.SetTransform(SlimDX.Direct3D9.TransformState.World,
                     matrix
-                    );
-                    structure.Model.Draw(direct3DProvider, false);
-                    structure.Model.Draw(direct3DProvider, true);
-                }
-
+                    ); 
+                    DrawMethod.Invoke(structure.Model.Src,args);
+                
             }
             return new PatchInvokationResult(SkipModes.Continue);
         }
