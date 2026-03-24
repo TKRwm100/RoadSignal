@@ -46,7 +46,7 @@
     <Compile Include="Config.cs">
       <DependentUpon>Config.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ConfigData.cs" />
+    <Compile Include="SignalController.cs" />
     <Compile Include="ConfigExtention.cs" />
     <Compile Include="DisposableValueDictionary.cs" />
     <Compile Include="ModelManager.cs" />

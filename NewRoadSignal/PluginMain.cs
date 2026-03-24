@@ -16,14 +16,13 @@ namespace BveEx.Toukaitetudou.RoadSignal
     {
         private readonly IStatementSet Statements;
         private readonly HarmonyPatch patch;
-        List<ConfigData> ConfigDatas;
-        FastMethod DrawMethod;
+        List<SignalController> ConfigDatas;
         public PluginMain(PluginBuilder builder) : base(builder)
         {
             Statements= Extensions.GetExtension<IStatementSet>();
             BveHacker.ScenarioCreated+=BveHacker_ScenarioCreated;
             Statements.LoadingCompleted+=Statements_LoadingCompleted;
-            DrawMethod=FastMethod.Create( BveHacker.BveTypes.GetClassInfoOf<Model>().OriginalType.GetMethod("b",new Type[] { BveHacker.BveTypes.GetClassInfoOf<Direct3DProvider>().OriginalType}));
+            SignalController.Initialize(BveHacker,FastMethod.Create( BveHacker.BveTypes.GetClassInfoOf<Model>().OriginalType.GetMethod("b",new Type[] { BveHacker.BveTypes.GetClassInfoOf<Direct3DProvider>().OriginalType})));
 
             ClassMemberSet members = BveHacker.BveTypes.GetClassInfoOf<StructureDrawer>();
             FastMethod DrawCarsMethod = members.GetSourceMethodOf(nameof(ObjectDrawer.StructureDrawer.Draw));
@@ -38,15 +37,14 @@ namespace BveEx.Toukaitetudou.RoadSignal
             double minDrawLocation = BveHacker.Scenario.VehicleLocation.Location - BveHacker.Scenario.ObjectDrawer.DrawDistanceManager.BackDrawDistance;
             double maxDrawLocation = BveHacker.Scenario.VehicleLocation.Location + BveHacker.Scenario.ObjectDrawer.DrawDistanceManager.DrawDistance;
             direct3DProvider.Device.SetRenderState(SlimDX.Direct3D9.RenderState.ZWriteEnable, true);
-            object[] args = new object[] { e.Args[0] };
-            int locationBlack = BveHacker.Scenario.VehicleLocation.BlockIndex * 25;
-            foreach (BveTypes.ClassWrappers.Structure structure in ConfigDatas.Where(x=>minDrawLocation<=x.Location&&x.Location<=maxDrawLocation).SelectMany(cd => cd?.GetDrawStructure()).Where(structure => !(structure is null)))
+            
+            foreach (SignalController controller in ConfigDatas)
             {
-                    Matrix matrix = BveHacker.Scenario.Map.GetTrackMatrix(structure, structure.Location, locationBlack) * viewMatrix;
-                    direct3DProvider.Device.SetTransform(SlimDX.Direct3D9.TransformState.World,
-                    matrix
-                    ); 
-                    DrawMethod.Invoke(structure.Model.Src,args);
+                if (minDrawLocation<=controller.Location&&controller.Location<=maxDrawLocation)
+                {
+                    controller.Draw(viewMatrix);
+                }
+
                 
             }
             return new PatchInvokationResult(SkipModes.Continue);
@@ -56,7 +54,7 @@ namespace BveEx.Toukaitetudou.RoadSignal
         {
             IEnumerable<Statement> statements= Statements.FindUserStatements(nameof(Toukaitetudou), ClauseFilter.Element(nameof(RoadSignal), 0), ClauseFilter.Function("Put",1));
 
-            ConfigDatas = statements.Select(x => ConfigData.CreateConfigdata(x)).ToList();
+            ConfigDatas = statements.Select(x => SignalController.CreateConfigdata(x)).ToList();
             return;
         }
 
@@ -71,7 +69,7 @@ namespace BveEx.Toukaitetudou.RoadSignal
             patch.Dispose();
             if (!(ConfigDatas is null))
             {
-                foreach (ConfigData cd in ConfigDatas)
+                foreach (SignalController cd in ConfigDatas)
                 {
                     cd?.Dispose();
                 }
@@ -81,7 +79,7 @@ namespace BveEx.Toukaitetudou.RoadSignal
 
         public override void Tick(TimeSpan elapsed)
         {
-            foreach (ConfigData cd in ConfigDatas)
+            foreach (SignalController cd in ConfigDatas)
             {
                 cd?.Tick(elapsed);
             }

@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 
 namespace BveEx.Toukaitetudou.RoadSignal
 {
-    internal class SignalControler : IDisposable
+    internal class SignalController : IDisposable
     {
         public double Location { get; }
         private readonly bool AR;
@@ -81,9 +81,9 @@ namespace BveEx.Toukaitetudou.RoadSignal
             DrawMethod= drawMethod;
         }
 
-        public static SignalControler CreateConfigdata(Statement statement)
+        public static SignalController CreateConfigdata(Statement statement)
         {
-            SignalControler rt;
+            SignalController rt;
             Config config;
             double location = statement.Source.Location;
             string filePath = Path.Combine(Path.GetDirectoryName(statement.Source.FileName), statement.Source.Clauses[4].Args[0] as string);
@@ -93,7 +93,7 @@ namespace BveEx.Toukaitetudou.RoadSignal
                 try
                 {
                     config = (Config)xs.Deserialize(sr);
-                    rt = new SignalControler(config,Path.GetDirectoryName(filePath),location);
+                    rt = new SignalController(config,Path.GetDirectoryName(filePath),location);
                 }
                 catch (Exception exp)
                 {
@@ -126,7 +126,7 @@ namespace BveEx.Toukaitetudou.RoadSignal
 
         TimeSpan cycleSpan;
         public string FilePath { get; }
-        private SignalControler(Config config,string path,double location)
+        private SignalController(Config config,string path,double location)
         {
             Location= location;
             FilePath = path;
@@ -174,8 +174,9 @@ namespace BveEx.Toukaitetudou.RoadSignal
         {
             int locationBlack = BveHacker.Scenario.VehicleLocation.BlockIndex * 25;
             args[0] = Direct3DProvider.Instance.Src;
-            foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in BaseStr)
+            for (int i= 0;i < BaseStr.Count;++i)
             {
+                (BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet = BaseStr[i];
                 DrawStructure(strSet.OnStructure);
             }
             if (isEnable)
