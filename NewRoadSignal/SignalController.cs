@@ -75,10 +75,10 @@ namespace BveEx.Toukaitetudou.RoadSignal
         static FastMethod DrawMethod;
 
         object[] args = new object[1];
-        public static void Initialize(IBveHacker bveHacker,FastMethod drawMethod)
+        public static void Initialize(IBveHacker bveHacker, FastMethod drawMethod)
         {
-            BveHacker= bveHacker;
-            DrawMethod= drawMethod;
+            BveHacker = bveHacker;
+            DrawMethod = drawMethod;
         }
 
         public static SignalController CreateConfigdata(Statement statement)
@@ -93,7 +93,7 @@ namespace BveEx.Toukaitetudou.RoadSignal
                 try
                 {
                     config = (Config)xs.Deserialize(sr);
-                    rt = new SignalController(config,Path.GetDirectoryName(filePath),location);
+                    rt = new SignalController(config, Path.GetDirectoryName(filePath), location);
                 }
                 catch (Exception exp)
                 {
@@ -104,31 +104,31 @@ namespace BveEx.Toukaitetudou.RoadSignal
                 }
             }
 
-            var structure=config.SignalControler.ItemsElementName.Zip(config.SignalControler.Items,(x,y)=>(x,y));
+            var structure = config.SignalControler.ItemsElementName.Zip(config.SignalControler.Items, (x, y) => (x, y));
 
-            rt.BaseStr = structure.Where(x=>x.x==ItemsChoiceType.Base).Select(x => x.y.GetStructure(location,rt.FilePath)).ToList();
-            rt.AcGStr = structure.Where(x => x.x==ItemsChoiceType.AcG).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
-            rt.AcYStr = structure.Where(x=>x.x==ItemsChoiceType.AcY).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
-            rt.AcRStr = structure.Where(x=>x.x==ItemsChoiceType.AcR).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
-            rt.AcAStr = structure.Where(x=>x.x==ItemsChoiceType.AcA).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
-            rt.ApGStr = structure.Where(x=>x.x==ItemsChoiceType.ApG).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
-            rt.ApRStr = structure.Where(x=>x.x==ItemsChoiceType.ApR).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.BaseStr = structure.Where(x => x.x == ItemsChoiceType.Base).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.AcGStr = structure.Where(x => x.x == ItemsChoiceType.AcG).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.AcYStr = structure.Where(x => x.x == ItemsChoiceType.AcY).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.AcRStr = structure.Where(x => x.x == ItemsChoiceType.AcR).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.AcAStr = structure.Where(x => x.x == ItemsChoiceType.AcA).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.ApGStr = structure.Where(x => x.x == ItemsChoiceType.ApG).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.ApRStr = structure.Where(x => x.x == ItemsChoiceType.ApR).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
 
-            rt.BcGStr = structure.Where(x=>x.x==ItemsChoiceType.BcG).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
-            rt.BcYStr = structure.Where(x=>x.x==ItemsChoiceType.BcY).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
-            rt.BcRStr = structure.Where(x=>x.x==ItemsChoiceType.BcR).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
-            rt.BcAStr = structure.Where(x=>x.x==ItemsChoiceType.BcA).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
-            rt.BpGStr = structure.Where(x=>x.x==ItemsChoiceType.BpG).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
-            rt.BpRStr = structure.Where(x=>x.x==ItemsChoiceType.BpR).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.BcGStr = structure.Where(x => x.x == ItemsChoiceType.BcG).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.BcYStr = structure.Where(x => x.x == ItemsChoiceType.BcY).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.BcRStr = structure.Where(x => x.x == ItemsChoiceType.BcR).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.BcAStr = structure.Where(x => x.x == ItemsChoiceType.BcA).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.BpGStr = structure.Where(x => x.x == ItemsChoiceType.BpG).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
+            rt.BpRStr = structure.Where(x => x.x == ItemsChoiceType.BpR).Select(x => x.y.GetStructure(location, rt.FilePath)).ToList();
 
             return rt;
         }
 
         TimeSpan cycleSpan;
         public string FilePath { get; }
-        private SignalController(Config config,string path,double location)
+        private SignalController(Config config, string path, double location)
         {
-            Location= location;
+            Location = location;
             FilePath = path;
             ConfigSignalControler sc = config.SignalControler;
             AR = sc.AR;
@@ -146,7 +146,7 @@ namespace BveEx.Toukaitetudou.RoadSignal
             AcY = new TimeSpan(0, 0, 0, 3, 0);
             BcY = new TimeSpan(0, 0, 0, 3, 0);
             AcR = new TimeSpan(0, 0, 0, 3, 0);
-            BcR = new TimeSpan(0, 0, 0, 3,0);
+            BcR = new TimeSpan(0, 0, 0, 3, 0);
             ApF = new TimeSpan(0, 0, 0, 0, 500);
             BpF = new TimeSpan(0, 0, 0, 0, 500);
             totalElapse = new TimeSpan(0);
@@ -154,7 +154,7 @@ namespace BveEx.Toukaitetudou.RoadSignal
             cycleSpan = AcG + AcY + AcR + (AR ? AcA + AcY : new TimeSpan(0)) + BcG + BcY + BcR + (BR ? BcA + BcY : new TimeSpan(0));
 
             AcGb = new TimeSpan(0, 0, 0, 0);
-            ApGf = new TimeSpan(0, 0, 0, (int)(AcG.TotalSeconds - Apf*ApF.TotalSeconds - AYSigOffset), 0);
+            ApGf = new TimeSpan(0, 0, 0, (int)(AcG.TotalSeconds - Apf * ApF.TotalSeconds - AYSigOffset), 0);
             ApFf = new TimeSpan(0, 0, 0, (int)AcG.TotalSeconds - AYSigOffset);
             AcYb = new TimeSpan(0, 0, 0, (int)AcG.TotalSeconds);
             AcYf = AcYb + AcY;
@@ -162,7 +162,7 @@ namespace BveEx.Toukaitetudou.RoadSignal
             AcAYf = AcAf + (AR ? AcY : new TimeSpan(0));
 
             BcGb = AcAYf + AcR;
-            BpGf = new TimeSpan(0, 0, 0, (int)(BcGb.TotalSeconds + BcG.TotalSeconds - Bpf*BpF.TotalSeconds - BYSigOffset));
+            BpGf = new TimeSpan(0, 0, 0, (int)(BcGb.TotalSeconds + BcG.TotalSeconds - Bpf * BpF.TotalSeconds - BYSigOffset));
             BpFf = new TimeSpan(0, 0, 0, (int)(BcGb.TotalSeconds + BcG.TotalSeconds - BYSigOffset));
             BcYb = new TimeSpan(0, 0, 0, (int)(BcGb.TotalSeconds + BcG.TotalSeconds));
             BcYf = BcYb + BcY;
@@ -174,126 +174,152 @@ namespace BveEx.Toukaitetudou.RoadSignal
         {
             int locationBlack = BveHacker.Scenario.VehicleLocation.BlockIndex * 25;
             args[0] = Direct3DProvider.Instance.Src;
-            for (int i= 0;i < BaseStr.Count;++i)
+            for (int i = 0; i < BaseStr.Count; ++i)
             {
-                (BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet = BaseStr[i];
-                DrawStructure(strSet.OnStructure);
+                (var OnStructure, var OffStructure) = BaseStr[i];
+                DrawStructure(OnStructure);
             }
             if (isEnable)
             {
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in AcGStr)
+                bool isAcG = (AcGb < totalElapse && totalElapse < AcYb);
+                bool isAcY = ((AcYb < totalElapse && totalElapse < AcYf) || (AcAf < totalElapse && totalElapse < AcAYf));
+                bool isAcR = (AcYf < totalElapse && totalElapse < AcAf) || (AcAYf < totalElapse || totalElapse < AcGb);
+                bool isAcA = AR && (AcYf < totalElapse && totalElapse < AcAf);
+                bool isApG = ((AcGb < totalElapse && totalElapse < ApGf) || (ApGf < totalElapse && totalElapse < ApFf && totalElapse.TotalSeconds % ApF.TotalSeconds < ApF.TotalSeconds / 2));
+                bool isApR = (ApFf < totalElapse || totalElapse < AcGb);
+                bool isBcG = (BcGb < totalElapse && totalElapse < BcYb);
+                bool isBcY = ((BcYb < totalElapse && totalElapse < BcYf) || (BcAf < totalElapse && totalElapse < BcAYf));
+                bool isBcR = (BcYf < totalElapse && totalElapse < BcAf) || (BcAYf < totalElapse || totalElapse < BcGb);
+                bool isBcA = BR && (BcYf < totalElapse && totalElapse < BcAf);
+                bool isBpG = ((BcGb < totalElapse && totalElapse < BpGf) || (BpGf < totalElapse && totalElapse < BpFf && totalElapse.TotalSeconds % BpF.TotalSeconds < BpF.TotalSeconds / 2));
+                bool isBpR = (BpFf < totalElapse || totalElapse < BcGb);
+
+                for (int i = 0; i < AcGStr.Count; ++i)
                 {
-                    DrawStructure((AcGb < totalElapse && totalElapse < AcYb) ? strSet.OnStructure : strSet.OffStructure);
+                    (var OnStructure, var OffStructure) = AcGStr[i];
+                    DrawStructure(isAcG ? OnStructure : OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in AcYStr)
+                for (int i = 0; i < AcYStr.Count; ++i)
                 {
-                    DrawStructure(((AcYb < totalElapse && totalElapse < AcYf) || (AcAf < totalElapse && totalElapse < AcAYf)) ? strSet.OnStructure : strSet.OffStructure);
+                    (var OnStructure, var OffStructure) = AcYStr[i];
+                    DrawStructure(isAcY ? OnStructure : OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in AcRStr)
+                for (int i = 0; i < AcRStr.Count; ++i)
                 {
-                    DrawStructure((AcYf < totalElapse && totalElapse < AcAf) || (AcAYf < totalElapse || totalElapse < AcGb) ? strSet.OnStructure : strSet.OffStructure);
+                    (var OnStructure, var OffStructure) = AcRStr[i];
+                    DrawStructure(isAcR ? OnStructure : OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in AcAStr)
+                for (int i = 0; i < AcAStr.Count; ++i)
                 {
-                    DrawStructure(
-                        AR && (AcYf < totalElapse && totalElapse < AcAf)
-                        ? strSet.OnStructure : strSet.OffStructure);
+                    (var OnStructure, var OffStructure) = AcAStr[i];
+                    DrawStructure(isAcA ? OnStructure : OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in ApGStr)
+                for (int i = 0; i < ApGStr.Count; ++i)
                 {
-                    DrawStructure(
-                        ((AcGb < totalElapse && totalElapse < ApGf) || (ApGf < totalElapse && totalElapse < ApFf && totalElapse.TotalSeconds % ApF.TotalSeconds < ApF.TotalSeconds / 2))
-                        ? strSet.OnStructure : strSet.OffStructure);
+                    (var OnStructure, var OffStructure) = ApGStr[i];
+                    DrawStructure(isApG ? OnStructure : OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in ApRStr)
+                for (int i = 0; i < ApRStr.Count; ++i)
                 {
-                    DrawStructure(
-                        (ApFf < totalElapse || totalElapse < AcGb)
-                        ? strSet.OnStructure : strSet.OffStructure);
+                    (var OnStructure, var OffStructure) = ApRStr[i];
+                    DrawStructure(isApR ? OnStructure : OffStructure);
                 }
 
 
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in BcGStr)
+
+                for (int i = 0; i < BcGStr.Count; ++i)
                 {
-                    DrawStructure((BcGb < totalElapse && totalElapse < BcYb) ? strSet.OnStructure : strSet.OffStructure);
+                    (var OnStructure, var OffStructure) = BcGStr[i];
+                    DrawStructure(isBcG ? OnStructure : OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in BcYStr)
+                for (int i = 0; i < BcYStr.Count; ++i)
                 {
-                    DrawStructure(((BcYb < totalElapse && totalElapse < BcYf) || (BcAf < totalElapse && totalElapse < BcAYf)) ? strSet.OnStructure : strSet.OffStructure);
+                    (var OnStructure, var OffStructure) = BcYStr[i];
+                    DrawStructure(isBcY ? OnStructure : OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in BcRStr)
+                for (int i = 0; i < BcRStr.Count; ++i)
                 {
-                    DrawStructure((BcYf < totalElapse && totalElapse < BcAf) || (BcAYf < totalElapse || totalElapse < BcGb) ? strSet.OnStructure : strSet.OffStructure);
+                    (var OnStructure, var OffStructure) = BcRStr[i];
+                    DrawStructure(isBcR ? OnStructure : OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in BcAStr)
+                for (int i = 0; i < BcAStr.Count; ++i)
                 {
-                    DrawStructure(
-                        BR && (BcYf < totalElapse && totalElapse < BcAf)
-                        ? strSet.OnStructure : strSet.OffStructure);
+                    (var OnStructure, var OffStructure) = BcAStr[i];
+                    DrawStructure(isBcA ? OnStructure : OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in BpGStr)
+                for (int i = 0; i < BpGStr.Count; ++i)
                 {
-                    DrawStructure(
-                        ((BcGb < totalElapse && totalElapse < BpGf) || (BpGf < totalElapse && totalElapse < BpFf && totalElapse.TotalSeconds % BpF.TotalSeconds < BpF.TotalSeconds / 2))
-                        ? strSet.OnStructure : strSet.OffStructure);
+                    (var OnStructure, var OffStructure) = BpGStr[i];
+                    DrawStructure(isBpG ? OnStructure : OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in BpRStr)
+                for (int i = 0; i < BpRStr.Count; ++i)
                 {
-                    DrawStructure(
-                        (BpFf < totalElapse || totalElapse < BcGb)
-                        ? strSet.OnStructure : strSet.OffStructure);
+                    (var OnStructure, var OffStructure) = BpRStr[i];
+                    DrawStructure(isBpR ? OnStructure : OffStructure);
                 }
             }
             else
             {
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in AcGStr)
+                for (int i = 0; i < AcGStr.Count; ++i)
                 {
-                    DrawStructure(strSet.OffStructure);
+                    (_, var OffStructure) = AcGStr[i];
+                    DrawStructure(OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in AcYStr)
+                for (int i = 0; i < AcYStr.Count; ++i)
                 {
-                    DrawStructure(strSet.OffStructure);
+                    (_, var OffStructure) = AcYStr[i];
+                    DrawStructure(OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in AcRStr)
+                for (int i = 0; i < AcRStr.Count; ++i)
                 {
-                    DrawStructure(strSet.OnStructure);
+                    (var OnStructure, _) = AcRStr[i];
+                    DrawStructure(OnStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in AcAStr)
+                for (int i = 0; i < AcAStr.Count; ++i)
                 {
-                    DrawStructure(strSet.OffStructure);
+                    (_, var OffStructure) = AcAStr[i];
+                    DrawStructure(OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in ApGStr)
+                for (int i = 0; i < ApGStr.Count; ++i)
                 {
-                    DrawStructure(strSet.OffStructure);
+                    (_, var OffStructure) = ApGStr[i];
+                    DrawStructure(OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in ApRStr)
+                for (int i = 0; i < ApRStr.Count; ++i)
                 {
-                    DrawStructure(strSet.OnStructure);
+                    (var OnStructure, _) = ApRStr[i];
+                    DrawStructure(OnStructure);
                 }
 
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in BcGStr)
+                for (int i = 0; i < BcGStr.Count; ++i)
                 {
-                    DrawStructure(strSet.OffStructure);
+                    (_, var OffStructure) = BcGStr[i];
+                    DrawStructure(OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in BcYStr)
+                for (int i = 0; i < BcYStr.Count; ++i)
                 {
-                    DrawStructure(strSet.OffStructure);
+                    (_, var OffStructure) = BcYStr[i];
+                    DrawStructure(OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in BcRStr)
+                for (int i = 0; i < BcRStr.Count; ++i)
                 {
-                    DrawStructure(strSet.OnStructure);
+                    (var OnStructure, _) = BcRStr[i];
+                    DrawStructure(OnStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in BcAStr)
+                for (int i = 0; i < BcAStr.Count; ++i)
                 {
-                    DrawStructure(strSet.OffStructure);
+                    (_, var OffStructure) = BcAStr[i];
+                    DrawStructure(OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in BpGStr)
+                for (int i = 0; i < BpGStr.Count; ++i)
                 {
-                    DrawStructure(strSet.OffStructure);
+                    (_, var OffStructure) = BpGStr[i];
+                    DrawStructure(OffStructure);
                 }
-                foreach ((BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure) strSet in BpRStr)
+                for (int i = 0; i < BpRStr.Count; ++i)
                 {
-                    DrawStructure(strSet.OnStructure);
+                    (var OnStructure, _) = BpRStr[i];
+                    DrawStructure(OnStructure);
                 }
             }
 
