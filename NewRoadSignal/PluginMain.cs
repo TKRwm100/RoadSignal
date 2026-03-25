@@ -16,11 +16,10 @@ namespace BveEx.Toukaitetudou.RoadSignal
     {
         private readonly IStatementSet Statements;
         private readonly HarmonyPatch patch;
-        List<SignalController> ConfigDatas;
+        List<SignalController> Controllers;
         public PluginMain(PluginBuilder builder) : base(builder)
         {
             Statements= Extensions.GetExtension<IStatementSet>();
-            BveHacker.ScenarioCreated+=BveHacker_ScenarioCreated;
             Statements.LoadingCompleted+=Statements_LoadingCompleted;
             SignalController.Initialize(BveHacker,FastMethod.Create( BveHacker.BveTypes.GetClassInfoOf<Model>().OriginalType.GetMethod("b",new Type[] { BveHacker.BveTypes.GetClassInfoOf<Direct3DProvider>().OriginalType})));
 
@@ -38,7 +37,7 @@ namespace BveEx.Toukaitetudou.RoadSignal
             double maxDrawLocation = BveHacker.Scenario.VehicleLocation.Location + BveHacker.Scenario.ObjectDrawer.DrawDistanceManager.DrawDistance;
             direct3DProvider.Device.SetRenderState(SlimDX.Direct3D9.RenderState.ZWriteEnable, true);
             
-            foreach (SignalController controller in ConfigDatas)
+            foreach (SignalController controller in Controllers)
             {
                 if (minDrawLocation<=controller.Location&&controller.Location<=maxDrawLocation)
                 {
@@ -54,34 +53,23 @@ namespace BveEx.Toukaitetudou.RoadSignal
         {
             IEnumerable<Statement> statements= Statements.FindUserStatements(nameof(Toukaitetudou), ClauseFilter.Element(nameof(RoadSignal), 0), ClauseFilter.Function("Put",1));
 
-            ConfigDatas = statements.Select(x => SignalController.CreateConfigdata(x)).ToList();
+            Controllers = statements.Select(x => SignalController.CreateController(x)).ToList();
             return;
         }
 
-        private void BveHacker_ScenarioCreated(PluginHost.ScenarioCreatedEventArgs e)
-        {
-        }
 
         public override void Dispose()
-        {
-            BveHacker.ScenarioCreated -= BveHacker_ScenarioCreated;
+        { 
             Statements.LoadingCompleted -= Statements_LoadingCompleted;
             patch.Dispose();
-            if (!(ConfigDatas is null))
-            {
-                foreach (SignalController cd in ConfigDatas)
-                {
-                    cd?.Dispose();
-                }
-            }
             ModelManager.Dispose();
         }
 
         public override void Tick(TimeSpan elapsed)
         {
-            foreach (SignalController cd in ConfigDatas)
+            foreach (SignalController ctrl in Controllers)
             {
-                cd?.Tick(elapsed);
+                ctrl?.Tick(elapsed);
             }
         }
     }

@@ -13,49 +13,48 @@ using System.Xml.Serialization;
 
 namespace BveEx.Toukaitetudou.RoadSignal
 {
-    internal class SignalController : IDisposable
+    internal class SignalController 
     {
         public double Location { get; }
         private readonly bool AR;
         private readonly bool BR;
 
-        TimeSpan AcG;
+        private readonly TimeSpan AcG;
         private readonly int Apf;
-        TimeSpan ApF;
-        TimeSpan AcA;
+        private readonly TimeSpan ApF;
+        private readonly TimeSpan AcA;
 
-        TimeSpan BcG;
+        private readonly TimeSpan BcG;
         private readonly int Bpf;
-        TimeSpan BpF;
-        TimeSpan BcA;
+        private readonly TimeSpan BpF;
+        private readonly TimeSpan BcA;
 
-        TimeSpan sd;
+        private readonly TimeSpan sd;
 
-        TimeSpan AcR;
-        TimeSpan BcR;
+        private readonly TimeSpan AcR;
+        private readonly TimeSpan BcR;
 
-        TimeSpan AcY;
-        TimeSpan BcY;
+        private readonly TimeSpan AcY;
+        private readonly TimeSpan BcY;
 
-        TimeSpan totalElapse;
-        bool isEnable;
+        private TimeSpan totalElapse;
+        private bool isEnable;
         static private int AYSigOffset => 3;
         static private int BYSigOffset => 3;
-        TimeSpan AcGb;
-        TimeSpan ApGf;
-        TimeSpan ApFf;
-        TimeSpan AcYb;
-        TimeSpan AcYf;
-        TimeSpan AcAf;
-        TimeSpan AcAYf;
-
-        TimeSpan BcGb;
-        TimeSpan BpGf;
-        TimeSpan BpFf;
-        TimeSpan BcYb;
-        TimeSpan BcYf;
-        TimeSpan BcAf;
-        TimeSpan BcAYf;
+        private readonly TimeSpan AcGb;
+        private readonly TimeSpan ApGf;
+        private readonly TimeSpan ApFf;
+        private readonly TimeSpan AcYb;
+        private readonly TimeSpan AcYf;
+        private readonly TimeSpan AcAf;
+        private readonly TimeSpan AcAYf;
+        private readonly TimeSpan BcGb;
+        private readonly TimeSpan BpGf;
+        private readonly TimeSpan BpFf;
+        private readonly TimeSpan BcYb;
+        private readonly TimeSpan BcYf;
+        private readonly TimeSpan BcAf;
+        private readonly TimeSpan BcAYf;
 
         List<(BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure)> BaseStr;
         List<(BveTypes.ClassWrappers.Structure OnStructure, BveTypes.ClassWrappers.Structure OffStructure)> AcGStr;
@@ -74,14 +73,14 @@ namespace BveEx.Toukaitetudou.RoadSignal
         static IBveHacker BveHacker;
         static FastMethod DrawMethod;
 
-        object[] args = new object[1];
+        private readonly object[] args = new object[1];
         public static void Initialize(IBveHacker bveHacker, FastMethod drawMethod)
         {
             BveHacker = bveHacker;
             DrawMethod = drawMethod;
         }
 
-        public static SignalController CreateConfigdata(Statement statement)
+        public static SignalController CreateController(Statement statement)
         {
             SignalController rt;
             Config config;
@@ -124,7 +123,7 @@ namespace BveEx.Toukaitetudou.RoadSignal
             return rt;
         }
 
-        TimeSpan cycleSpan;
+        private readonly TimeSpan cycleSpan;
         public string FilePath { get; }
         private SignalController(Config config, string path, double location)
         {
@@ -353,40 +352,5 @@ namespace BveEx.Toukaitetudou.RoadSignal
 
         }
 
-        public void Dispose()
-        {/*
-            foreach (BveTypes.ClassWrappers.Structure structure in
-                BaseStr.Select(x=>x.OnStructure).Concat(
-                AcGStr.Select(x=>x.OnStructure)).Concat(
-                AcYStr.Select(x=>x.OnStructure)).Concat(
-                AcRStr.Select(x=>x.OnStructure)).Concat(
-                AcAStr.Select(x=>x.OnStructure)).Concat(
-                ApGStr.Select(x=>x.OnStructure)).Concat(
-                ApRStr.Select(x=>x.OnStructure)).Concat(
-                BcGStr.Select(x=>x.OnStructure)).Concat(
-                BcYStr.Select(x=>x.OnStructure)).Concat(
-                BcRStr.Select(x=>x.OnStructure)).Concat(
-                BcAStr.Select(x=>x.OnStructure)).Concat(
-                BpGStr.Select(x=>x.OnStructure)).Concat(
-                BpRStr.Select(x=>x.OnStructure)).Concat(
-
-                AcGStr.Select(x=>x.OffStructure)).Concat(
-                AcYStr.Select(x=>x.OffStructure)).Concat(
-                AcRStr.Select(x=>x.OffStructure)).Concat(
-                AcAStr.Select(x=>x.OffStructure)).Concat(
-                ApGStr.Select(x=>x.OffStructure)).Concat(
-                ApRStr.Select(x=>x.OffStructure)).Concat(
-                BcGStr.Select(x=>x.OffStructure)).Concat(
-                BcYStr.Select(x=>x.OffStructure)).Concat(
-                BcRStr.Select(x=>x.OffStructure)).Concat(
-                BcAStr.Select(x=>x.OffStructure)).Concat(
-                BpGStr.Select(x=>x.OffStructure)).Concat(
-                BpRStr.Select(x=>x.OffStructure)).Concat(
-                BaseStr.Select(x=>x.OffStructure))
-            )
-            {
-                structure?.Model?.Dispose();
-            }*/
-        }
     }
 }
